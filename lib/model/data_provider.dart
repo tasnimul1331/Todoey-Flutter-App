@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../model/task.dart';
 
 class DataProvider extends ChangeNotifier {
-  List<Task> tasks = [
+  List<Task> _tasks = [
     Task(name: 'Buy groceries'),
     Task(name: 'Walk the dog'),
     Task(name: 'Read a book'),
@@ -10,21 +10,21 @@ class DataProvider extends ChangeNotifier {
   ];
 
   List<Task> getTasks() {
-    return tasks;
+    return _tasks;
   }
 
   void addTask(String taskTitle) {
-    tasks.add(Task(name: taskTitle));
+    _tasks.add(Task(name: taskTitle));
     notifyListeners();
   }
 
   void toggleTaskStatus(int index) {
-    tasks[index].toggleDone();
+    _tasks[index].toggleDone();
     notifyListeners();
   }
 
   void removeTask(int index) {
-    tasks.removeAt(index);
+    _tasks.removeAt(index);
     notifyListeners();
   }
 }
