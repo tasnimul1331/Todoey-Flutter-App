@@ -4,8 +4,15 @@ class TaskTile extends StatelessWidget {
   final bool? isChecked;
   final String taskName;
   final void Function(bool?)? checkboxCallback;
+  final VoidCallback deleteCallback;
 
-  TaskTile({required this.taskName, this.isChecked = false, required this.checkboxCallback});
+  const TaskTile({
+    super.key,
+    required this.taskName,
+    this.isChecked = false,
+    required this.checkboxCallback,
+    required this.deleteCallback,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -17,16 +24,13 @@ class TaskTile extends StatelessWidget {
           color: isChecked! ? Colors.grey : Colors.black,
         ),
       ),
-      trailing: Checkbox(
+
+      leading: Checkbox(
         value: isChecked,
         activeColor: Colors.lightBlueAccent,
         onChanged: checkboxCallback,
       ),
+      trailing: IconButton(icon: Icon(Icons.delete), onPressed: deleteCallback),
     );
   }
 }
-
-
-// setState(() {
-//             isChecked = newValue ?? false;
-//           });

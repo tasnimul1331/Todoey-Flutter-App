@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../model/data_provider.dart';
 
 class AddTaskScreen extends StatelessWidget {
-  final ValueChanged<String> addTaskCallback;
-  AddTaskScreen({super.key, required this.addTaskCallback});
+  AddTaskScreen({super.key});
 
-  String newTaskTitle = '';
   final TextEditingController controller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    String newTaskTitle = '';
     return Padding(
       padding: EdgeInsets.only(
         bottom: MediaQuery.of(context).viewInsets.bottom > 150
@@ -62,7 +63,10 @@ class AddTaskScreen extends StatelessWidget {
             onPressed: () {
               if (newTaskTitle.isNotEmpty) {
                 Navigator.pop(context);
-                addTaskCallback(newTaskTitle);
+                Provider.of<DataProvider>(
+                  context,
+                  listen: false,
+                ).addTask(newTaskTitle);
                 newTaskTitle = '';
                 controller.clear();
               }

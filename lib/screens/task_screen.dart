@@ -1,29 +1,11 @@
 import 'package:flutter/material.dart';
-import '../widgets/task_list.dart';
 import 'add_task_screen.dart';
-import '../model/task.dart';
+import 'package:provider/provider.dart';
+import '../model/data_provider.dart';
+import '../widgets/task_list.dart';
 
-class TasksScreen extends StatefulWidget {
+class TasksScreen extends StatelessWidget {
   const TasksScreen({super.key});
-
-  @override
-  _TasksScreenState createState() => _TasksScreenState();
-}
-
-class _TasksScreenState extends State<TasksScreen> {
-  List<Task> tasks = [
-    Task(name: 'Buy groceries'),
-    Task(name: 'Walk the dog'),
-    Task(name: 'Read a book'),
-    Task(name: 'Exercise for 30 minutes'),
-  ];
-
-  void addTask(String taskTitle) {
-    setState(() {
-      tasks.add(Task(name: taskTitle));
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,7 +18,7 @@ class _TasksScreenState extends State<TasksScreen> {
             shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
             ),
-            builder: (context) => AddTaskScreen(addTaskCallback: addTask),
+            builder: (context) => AddTaskScreen(),
           );
         },
         backgroundColor: Colors.lightBlueAccent,
@@ -70,7 +52,7 @@ class _TasksScreenState extends State<TasksScreen> {
                   ),
                 ),
                 Text(
-                  '${tasks.length} Tasks',
+                  '${Provider.of<DataProvider>(context).getTasks().length} Tasks',
                   style: TextStyle(color: Colors.white, fontSize: 18.0),
                 ),
               ],
@@ -88,7 +70,7 @@ class _TasksScreenState extends State<TasksScreen> {
                   topRight: Radius.circular(20.0),
                 ),
               ),
-              child: TaskList(tasks: tasks),
+              child: TaskList(),
             ),
           ),
           // Additional UI components can be added here
