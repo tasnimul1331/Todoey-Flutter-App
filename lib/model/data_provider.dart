@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import '../model/task.dart';
+import 'dart:collection';
 
 class DataProvider extends ChangeNotifier {
-  List<Task> _tasks = [
+  final List<Task> _tasks = [
     Task(name: 'Buy groceries'),
     Task(name: 'Walk the dog'),
     Task(name: 'Read a book'),
     Task(name: 'Exercise for 30 minutes'),
   ];
 
-  List<Task> getTasks() {
-    return _tasks;
+  UnmodifiableListView<Task> getTasks() {
+    return UnmodifiableListView(_tasks);
   }
 
   void addTask(String taskTitle) {
